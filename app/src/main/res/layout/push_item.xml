@@ -1,0 +1,117 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.widget.CompoundButton" />
+
+        <variable
+            name="push"
+            type="com.edna.android.push.demo_x.data.dto.Push" />
+
+        <variable
+            name="viewmodel"
+            type="com.edna.android.push.demo_x.pushlist.PushListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewmodel.openPush(push.messageId)}"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/demoIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_demo_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/demo"
+            style="@style/TextPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:text="Демо"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/demoIcon"
+            app:layout_constraintStart_toEndOf="@+id/demoIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Демо" />
+
+        <TextView
+            android:id="@+id/actionType"
+            style="@style/TextPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:text="@{push.action1}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/demo"
+            app:layout_constraintStart_toEndOf="@+id/demo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.888"
+            tools:text="Переход по пушу" />
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/TextPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{push.date}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/actionType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12.01.2022" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{push.title}"
+            android:textFontWeight="500"
+            app:layout_constraintEnd_toStartOf="@+id/pushIcon"
+            app:layout_constraintStart_toStartOf="@+id/demo"
+            app:layout_constraintTop_toBottomOf="@+id/demoIcon"
+            app:layout_goneMarginEnd="0dp"
+            tools:targetApi="p"
+            tools:text="12.01.2022" />
+
+        <ImageView
+            android:id="@+id/pushIcon"
+            setImageUrl="@{push.iconUrl}"
+            setRoundingRadius="@{16}"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title" />
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/TextSecondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="6dp"
+            android:lineHeight="20dp"
+            android:text="@{push.description}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/title"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:targetApi="p"
+            tools:text="Готовим и доставляем безопасно. Оперативно доставим до двери! Apple Pay. 602 пиццерии в сети. Доставим пиццу горячей" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

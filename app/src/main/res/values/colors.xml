@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>:
+    <color name="colorPrimary">#121212</color>
+    <color name="colorSecondary">#5B5B5B</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="grey100">#ECECEC</color>
+    <color name="grey200">#E5E5E5</color>
+    <color name="grey600">#5B5B5B</color>
+    <color name="grey700">#2D2D2D</color>
+    <color name="grey900">#121212</color>
+    <color name="positive500">#09A460</color>
+    <color name="grayContent">#B7B7B7</color>
+    <color name="greyContentSecondary">#5B5B5B</color>
+
+    <color name="iconColor">#54DCA0</color>
+
+
+</resources>

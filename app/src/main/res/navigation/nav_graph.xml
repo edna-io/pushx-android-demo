@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/pushListFragment">
+
+    <action
+        android:id="@+id/to_loginDialogFragment"
+        app:destination="@id/loginDialogFragment" />
+
+    <action
+        android:id="@+id/to_clearHistoryDialogFragment"
+        app:destination="@id/clearHistoryDialogFragment" />
+
+    <action
+        android:id="@+id/to_pushDetailFragment"
+        app:destination="@id/pushDetailFragment" />
+
+    <fragment
+        android:id="@+id/pushListFragment"
+        android:name="com.edna.android.push.demo_x.pushlist.PushListFragment"
+        android:label="Push List">
+        <action
+            android:id="@+id/action_pushDetailFragment_to_pushDetailFragment"
+            app:destination="@id/pushDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pushDetailFragment"
+        android:name="com.edna.android.push.demo_x.pushdetail.PushDetailFragment"
+        android:label="Push Detail">
+        <argument
+            android:name="pushId"
+            app:argType="string" />
+        <argument
+            android:name="buttonAction"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="buttonActionTitle"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/loginDialogFragment"
+        android:name="com.edna.android.push.demo_x.login.LoginDialog">
+        <argument
+            android:name="myarg"
+            android:defaultValue="@null" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/clearHistoryDialogFragment"
+        android:name="com.edna.android.push.demo_x.clearhistory.ClearHistoryDialog" />
+
+</navigation>
