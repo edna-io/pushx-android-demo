@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.edna.android.push.demo_x.activity.MainActivityViewModel" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_graph" />
+
+        </LinearLayout>
+
+        <!-- Navigation Drawer -->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey900"
+                android:paddingStart="28dp"
+                android:paddingEnd="28dp">
+
+                <ImageView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginEnd="26dp"
+                    android:src="@drawable/ic_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@{viewmodel.userLogin}"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
+
+                <ImageView
+                    android:id="@+id/loginIcon"
+                    setSrcRes="@{viewmodel.loginOrLogoutIcon}"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="26dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/login" />
+
+                <TextView
+                    android:id="@+id/loginButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@{viewmodel.loginOrLogoutText}"
+                    android:textColor="@color/grayContent"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/loginIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/loginIcon"
+                    app:layout_constraintTop_toTopOf="@+id/loginIcon" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/greyContentSecondary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/loginIcon" />
+
+                <ImageView
+                    android:id="@+id/removePushAddressIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_key"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+                <TextView
+                    android:id="@+id/removePushAddressButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:onClick="@{()-> viewmodel.resetPushAddress()}"
+                    android:text="@string/lmenu_reset_push_token"
+                    android:textColor="@color/grayContent"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/removePushAddressIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/removePushAddressIcon"
+                    app:layout_constraintTop_toTopOf="@+id/removePushAddressIcon" />
+
+                <ImageView
+                    android:id="@+id/clearPushHistoryIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:src="@drawable/ic_trash"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/removePushAddressIcon" />
+
+                <TextView
+                    android:id="@+id/clearPushHistoryButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/lmenu_clear_history_btn"
+                    android:textColor="@color/grayContent"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/clearPushHistoryIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/clearPushHistoryIcon"
+                    app:layout_constraintTop_toTopOf="@+id/clearPushHistoryIcon" />
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/greyContentSecondary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/clearPushHistoryIcon" />
+
+                <TextView
+                    android:id="@+id/infoAboutDevice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/lmenu_device_info_header"
+                    android:textColor="@color/grayContent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/TextSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/lmenu_device_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/infoAboutDevice" />
+
+                <TextView
+                    android:id="@+id/nameInfo"
+                    style="@style/TextPrimary"
+                    copyToBuffer="@{() -> viewmodel.copyName()}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:gravity="end"
+                    android:text="@{viewmodel.name}"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/name"
+                    app:layout_constraintTop_toTopOf="@+id/name" />
+
+                <TextView
+                    android:id="@+id/address"
+                    style="@style/TextSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lmenu_device_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/addressInfo" />
+
+                <TextView
+                    android:id="@+id/addressInfo"
+                    style="@style/TextPrimary"
+                    copyToBuffer="@{() -> viewmodel.copyAddress()}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="end"
+                    android:text="@{viewmodel.deviceAddress}"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.034"
+                    app:layout_constraintStart_toEndOf="@+id/address"
+                    app:layout_constraintTop_toBottomOf="@+id/nameInfo" />
+
+                <TextView
+                    android:id="@+id/id"
+                    style="@style/TextSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lmenu_device_id"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/idInfo" />
+
+                <TextView
+                    android:id="@+id/idInfo"
+                    style="@style/TextPrimary"
+                    copyToBuffer="@{() -> viewmodel.copyDeviceId()}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="end"
+                    android:text="@{viewmodel.deviceId}"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.107"
+                    app:layout_constraintStart_toEndOf="@+id/id"
+                    app:layout_constraintTop_toBottomOf="@+id/addressInfo" />
+
+                <ImageView
+                    android:id="@+id/copyDataIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/ic_copy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/idInfo" />
+
+                <TextView
+                    android:id="@+id/copyDataButton"
+                    copyToBuffer="@{() -> viewmodel.copyData()}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/copy_device_info_btn"
+                    android:textColor="@color/grayContent"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/copyDataIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/copyDataIcon"
+                    app:layout_constraintTop_toTopOf="@+id/copyDataIcon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

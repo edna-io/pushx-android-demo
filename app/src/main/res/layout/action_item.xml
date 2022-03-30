@@ -1,0 +1,45 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.widget.CompoundButton" />
+
+        <variable
+            name="action"
+            type="com.edna.android.push.demo_x.pushdetail.ActionAdapter.ButtonActionViewItem" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/buttonName"
+            style="@style/TextSecondary"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@{action.buttonName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/TextPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{action.buttonText}"
+            android:textFontWeight="500"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttonName"
+            app:layout_constraintTop_toTopOf="@+id/buttonName"
+            tools:targetApi="p" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

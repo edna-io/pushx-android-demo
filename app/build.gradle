@@ -1,0 +1,106 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
+    id 'com.huawei.agconnect'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    signingConfigs {
+        release {
+            storeFile file('edna.jks')
+            storePassword 'ednaedna'
+            keyAlias 'edna'
+            keyPassword 'ednaedna'
+        }
+    }
+    compileSdk 31
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 31
+        applicationId "com.edna.android.push.demo_x"
+        versionCode 1
+        versionName "1.0"
+        manifestPlaceholders.edna_app_id = "enter your tenant"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    buildFeatures {
+
+        dataBinding true
+        viewBinding true
+    }
+    kapt {
+        generateStubs = true
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$kotlinCoreVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    implementation "com.edna.android:push-x:$libVersion"
+    implementation "com.edna.android:push-x-huawei:$libVersion"
+
+    // Architecture Components
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionsVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "ru.tinkoff.decoro:decoro:$decoroVersion"
+
+    implementation "androidx.work:work-runtime:$work_version"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation "androidx.startup:startup-runtime:$startupRuntimeVersion"
+
+    configurations.all {
+        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+}
