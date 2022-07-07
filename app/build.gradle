@@ -29,7 +29,7 @@ android {
         applicationId "com.edna.android.push.demo_x"
         versionCode 1
         versionName "1.0"
-        manifestPlaceholders = [edna_app_id: "eyJ0ZW5hbnRVdWlkIjoiZmE3OTY0NzAtYzYxZC00NGRmLWJmNzItMDY0ZDdkMmEzNGJiIiwicHJvdmlkZXJVaWQiOiJQSDVBY2tnek9rRlNiMXRsTDI0bVdDNUZZelZhSmk5dldYSlRRa29xYUN4RUwxZGtLejlaTTE4cU0wRnlYVkV3U2kxamJUQnJPMnB0TVdnNk1rMUFWaTVRVXk5TlN5ZytRVEpsSkZOQU5VSmdURUJMZmo2PSJ9Cg=="]
+        manifestPlaceholders.edna_app_id = "enter your tenant"
     }
 
     buildTypes {
@@ -100,6 +100,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
     implementation "com.edna.android:push-x:$libVersion"
     implementation "com.edna.android:push-x-huawei:$libVersion"
 
