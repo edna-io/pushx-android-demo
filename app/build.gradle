@@ -1,4 +1,4 @@
-import groovy.json.JsonSlurper
+
 
 plugins {
     id 'com.android.application'
@@ -11,16 +11,6 @@ plugins {
 }
 
 android {
-// START signingConfigs BLOCK
-    signingConfigs {
-        release {
-            storeFile file('edna.jks')
-            storePassword 'ednaedna'
-            keyAlias 'edna'
-            keyPassword 'ednaedna'
-        }
-    }
-// END signingConfigs BLOCK
     compileSdk 31
 
     defaultConfig {
@@ -64,33 +54,6 @@ android {
     }
 }
 
-// START TRADUORA BLOCK
-task refreshLocale {
-    doLast {
-        def sep = File.separatorChar
-        def accessToken = new JsonSlurper()
-                .parseText(['curl', '-X', 'POST', 'http://traduora.mfms:8080/api/v1/auth/token', '-H', 'Content-Type: application/json', '-d', '@' + rootProject.projectDir.path + sep + 'traduora-config.json'].execute().text)
-                .get("access_token")
-        def inputStreamEn = ['curl', '-X', 'GET', "http://traduora.mfms:8080/api/v1/projects/$traduoraProjectId/exports?locale=en&format=androidxml", '-H', "Authorization: Bearer $accessToken"].execute().getInputStream()
-        def f = new File(project.projectDir.path + sep + 'src' + sep + 'main' + sep + 'res' + sep + 'values' + sep + 'strings.xml')
-        inputStreamEn.withStream { i ->
-            f.withOutputStream {
-                it << i
-            }
-        }
-        f.setText(f.getText("UTF-8").replace('</string>', '</string>\n'), "UTF-8")
-
-        def inputStreamRu = ['curl', '-X', 'GET', "http://traduora.mfms:8080/api/v1/projects/$traduoraProjectId/exports?locale=ru&format=androidxml", '-H', "Authorization: Bearer $accessToken"].execute().getInputStream()
-        def fRu = new File(project.projectDir.path + sep + 'src' + sep + 'main' + sep + 'res' + sep + 'values-ru' + sep + 'strings.xml')
-        inputStreamRu.withStream { i ->
-            fRu.withOutputStream {
-                it << i
-            }
-        }
-        fRu.setText(fRu.getText("UTF-8").replace('</string>', '</string>\n'), "UTF-8")
-    }
-}
-// END TRADUORA BLOCK
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
