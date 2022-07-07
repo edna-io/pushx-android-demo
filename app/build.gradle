@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -9,6 +11,7 @@ plugins {
 }
 
 android {
+// START signingConfigs BLOCK
     signingConfigs {
         release {
             storeFile file('edna.jks')
@@ -17,6 +20,7 @@ android {
             keyPassword 'ednaedna'
         }
     }
+// END signingConfigs BLOCK
     compileSdk 31
 
     defaultConfig {
@@ -25,7 +29,7 @@ android {
         applicationId "com.edna.android.push.demo_x"
         versionCode 1
         versionName "1.0"
-        manifestPlaceholders.edna_app_id = "enter your tenant"
+        manifestPlaceholders = [edna_app_id: "eyJ0ZW5hbnRVdWlkIjoiZmE3OTY0NzAtYzYxZC00NGRmLWJmNzItMDY0ZDdkMmEzNGJiIiwicHJvdmlkZXJVaWQiOiJQSDVBY2tnek9rRlNiMXRsTDI0bVdDNUZZelZhSmk5dldYSlRRa29xYUN4RUwxZGtLejlaTTE4cU0wRnlYVkV3U2kxamJUQnJPMnB0TVdnNk1rMUFWaTVRVXk5TlN5ZytRVEpsSkZOQU5VSmdURUJMZmo2PSJ9Cg=="]
     }
 
     buildTypes {
@@ -52,7 +56,6 @@ android {
     }
 
     buildFeatures {
-
         dataBinding true
         viewBinding true
     }
@@ -60,6 +63,34 @@ android {
         generateStubs = true
     }
 }
+
+// START TRADUORA BLOCK
+task refreshLocale {
+    doLast {
+        def sep = File.separatorChar
+        def accessToken = new JsonSlurper()
+                .parseText(['curl', '-X', 'POST', 'http://traduora.mfms:8080/api/v1/auth/token', '-H', 'Content-Type: application/json', '-d', '@' + rootProject.projectDir.path + sep + 'traduora-config.json'].execute().text)
+                .get("access_token")
+        def inputStreamEn = ['curl', '-X', 'GET', "http://traduora.mfms:8080/api/v1/projects/$traduoraProjectId/exports?locale=en&format=androidxml", '-H', "Authorization: Bearer $accessToken"].execute().getInputStream()
+        def f = new File(project.projectDir.path + sep + 'src' + sep + 'main' + sep + 'res' + sep + 'values' + sep + 'strings.xml')
+        inputStreamEn.withStream { i ->
+            f.withOutputStream {
+                it << i
+            }
+        }
+        f.setText(f.getText("UTF-8").replace('</string>', '</string>\n'), "UTF-8")
+
+        def inputStreamRu = ['curl', '-X', 'GET', "http://traduora.mfms:8080/api/v1/projects/$traduoraProjectId/exports?locale=ru&format=androidxml", '-H', "Authorization: Bearer $accessToken"].execute().getInputStream()
+        def fRu = new File(project.projectDir.path + sep + 'src' + sep + 'main' + sep + 'res' + sep + 'values-ru' + sep + 'strings.xml')
+        inputStreamRu.withStream { i ->
+            fRu.withOutputStream {
+                it << i
+            }
+        }
+        fRu.setText(fRu.getText("UTF-8").replace('</string>', '</string>\n'), "UTF-8")
+    }
+}
+// END TRADUORA BLOCK
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -69,7 +100,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-
     implementation "com.edna.android:push-x:$libVersion"
     implementation "com.edna.android:push-x-huawei:$libVersion"
 

@@ -30,7 +30,7 @@ class DatabaseWorker @Inject constructor(
                 title = extras.getString(PushNotification::title.name) ?: "",
                 description = extras.getString(PushNotification::message.name) ?: "",
                 iconUrl = extras.getString(PushNotification::smallIconUrl.name) ?: "",
-                setWhen = extras.getLong(PushNotification::setWhen.name, System.currentTimeMillis()),
+                setWhen = extras.getLong(PushNotification::chlSentAt.name, System.currentTimeMillis()),
                 bigContentTitle = extras.getString(PushNotification::bigTitle.name) ?: "",
                 bigContentText = extras.getString(PushNotification::bigMessage.name) ?: "",
                 bigImage = extras.getString(PushNotification::largeIconUrl.name) ?: "",

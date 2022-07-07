@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+find . -name "traduora-config.json" -type f -delete
+sed -i '.bak' '/^    traduoraProjectId/d' build.gradle;
+find . -name "*.bak" -type f -delete
+
+cd app || exit
+sed -i '.bak' 's/\import groovy.json.JsonSlurper//g' build.gradle;
+sed -i '.bak' '\:// START signingConfigs BLOCK:,\:// END signingConfigs BLOCK:d' build.gradle;
+sed -i '.bak' '\:// START TRADUORA BLOCK:,\:// END TRADUORA BLOCK:d' build.gradle;
+
+find . -name "*.bak" -type f -delete
+find . -name "*.jks" -type f -delete

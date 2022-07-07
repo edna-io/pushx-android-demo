@@ -3,7 +3,7 @@ buildscript {
     ext.navigationVersion = "2.3.5"
     repositories {
         google()
-        mavenCentral()
+        jcenter()
         maven { url 'https://developer.huawei.com/repo/' }
     }
     dependencies {
@@ -23,7 +23,7 @@ allprojects {
         mavenCentral()
         maven { url 'https://developer.huawei.com/repo' }
         maven {
-            url 'https://maven-pub.edna.ru/repository/maven-public'
+            url 'https://maven-pub.edna.ru/repository/maven-releases'
             allowInsecureProtocol = true
         }
     }
@@ -53,4 +53,6 @@ ext {
     startupRuntimeVersion = "1.1.1"
     decoroVersion = "1.3.4"
     gsonVersion = "2.8.9"
+
+    traduoraProjectId = 'f1746a04-97fe-4323-8cad-e82acc396372'
 }
