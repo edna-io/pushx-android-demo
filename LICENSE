@@ -1,0 +1,52 @@
+Copyright (c) 2022 edna (LLC OSK). All rights reserved. https://edna.ru/
+
+License for the right to use Demo application and related documentation files (hereinafter referred to as the Software) to study the operation of the Software and the possibility of integrating the Software with the user's software.
+
+A free, simple (non-exclusive) license worldwide and for the duration of the exclusive right to the Software is hereby granted to any person receiving a copy of this Software (hereinafter referred to as the user) to use the Software in the following ways with the following restrictions:
+
+(i) Reproduction, copying of the Software is allowed for non-commercial purposes only for the purpose of studying the operation of the Software and studying the possibility of integrating the Software with user’s software.
+(ii) You are not allowed to use the Software in any other way except the way set forth in paragraph (i), including, but not limited to, you are not allowed to use the Software for commercial purposes and for your own use, adaptation, merging (integration) of the Software with software user’s software, change (modification), processing of the Software, sublicensing and/or sale of the Software, its modifications, copies of the software and its modifications.
+(iii) Software, copies of the software may only be used for the purposes set out in paragraph (i). Further use of the Software is permitted on the basis of a separately concluded agreement with LLC OSK. If a separate agreement is concluded with LLC OSK for the use of the edna software system module - edna-pushsdk, the user has the right to continue using the Software on terms consistent with the terms of such an agreement, including integrating the Software with the user's software. In case of contradictions between the terms of this license and the terms of the agreement concluded between the user and LLC OSK, the concluded agreement shall prevail.
+(iv) The user of the Software acknowledges and understands that if the Software is integrated with the user's software under the terms and conditions set forth in paragraph (iii), such integration is done at his own risk and he assumes any risks associated with the use of the Software, the integration does not give the user any rights to the Software, the user does not create any derivative and / or composite works that include the Software. In the event of the creation of such derivative and/or composite works, the user undertakes to immediately notify the copyright holder, and also confirms that all rights to such works belong to LLC OSK.
+(v) The Software is provided "as is" without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose and non-infringement, warranties of transfer of exclusive rights. In no event shall the authors or copyright holders be liable for any claims, damages or other liability, whether in contract, tort or otherwise arising out of or in connection with the Software or its use or other dealings with the Software.
+(vi) This license does not authorize the use of the copyright holder's name (including abbreviations and acronyms, brands and logos), trademarks, service marks and/or product names of the copyright holder, except as required for reasonable and customary use in describing the origin Software.
+(vii) This license to use the Software is effective from the moment the user starts using the Software and signifies his full and unreserved acceptance of the above terms.
+(viii) The right holder reserves the right to change the terms of this license unilaterally and out of court.
+(ix) The foregoing terms of use of the Software in its entirety, stating the copyright holder of the Software, shall be included in the Software, its modifications, copies of the software and its modifications. Use of the Software without the terms of this license attached to it is prohibited.
+
+Includes the following files distributed according to the following conditions:
+
+org.jetbrains.kotlin
+Copyright 2022 JetBrains.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+Includes the following files distributed according to the following conditions:
+
+androidx.core; androidx.appcompat; com.google.android.material; androidx.constraintlayout; androidx.navigation; androidx.room; androidx.lifecycle; com.google.dagger; com.google.code.gson; androidx.work; androidx.startup; 
+Copyright 2022 Google, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+Includes the following files distributed according to the following conditions:
+
+com.github.bumptech.glide
+Copyright 2022 Google, Inc.
+
+https://github.com/bumptech/glide/blob/master/LICENSE
+
+Includes the following files distributed according to the following conditions:
+
+ru.tinkoff.decoro
+Copyright 2022 Tinkoff.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
