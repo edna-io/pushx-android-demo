@@ -114,7 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:onClick="@{()-> viewmodel.resetPushAddress()}"
+                    android:onClick="@{(view)-> viewmodel.resetPushAddress(view.context)}"
                     android:text="@string/lmenu_reset_push_token"
                     android:textColor="@color/grayContent"
                     android:textStyle="bold"

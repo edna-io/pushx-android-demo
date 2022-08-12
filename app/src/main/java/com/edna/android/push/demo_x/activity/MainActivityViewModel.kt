@@ -1,17 +1,20 @@
 package com.edna.android.push.demo_x.activity
 
+import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.edna.android.push.demo_x.R
 import com.edna.android.push.demo_x.data.local.sharedpreferences.PreferenceStore
 import com.edna.android.push.demo_x.di.ResourceProvider
-import com.edna.android.push.demo_x.util.PhoneUtils.Companion.COUNTRY_CODE_ALT
 import com.edna.android.push.demo_x.util.PhoneUtils.Companion.PHONE_SLOTS
 import com.edna.android.push.demo_x.util.combine
+import com.edna.android.push_lite.huawei.HmsHelper
 import com.edna.android.push_x.auth.SubscriberIdType
 import com.google.firebase.messaging.FirebaseMessaging
+import com.huawei.hms.common.ApiException
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
 import javax.inject.Inject
@@ -52,11 +55,23 @@ class MainActivityViewModel
         }
     }
 
-    fun resetPushAddress() {
-        FirebaseMessaging.getInstance().deleteToken()
-            .addOnCompleteListener {
-                FirebaseMessaging.getInstance().token
-            }
+    fun resetPushAddress(context: Context) {
+        if (Build.MANUFACTURER == "HUAWEI") {
+            object : Thread() {
+                override fun run() {
+                    try {
+                        HmsHelper.updateTokenFromHcm(context)
+                    } catch (e: ApiException) {
+                        Log.e("", "delete token failed, $e")
+                    }
+                }
+            }.start()
+        } else {
+            FirebaseMessaging.getInstance().deleteToken()
+                .addOnCompleteListener {
+                    FirebaseMessaging.getInstance().token
+                }
+        }
     }
 
     val name = Build.USER.replace("\"", "")
