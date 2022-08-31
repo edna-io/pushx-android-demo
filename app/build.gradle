@@ -1,3 +1,5 @@
+
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -9,14 +11,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('edna.jks')
-            storePassword 'ednaedna'
-            keyAlias 'edna'
-            keyPassword 'ednaedna'
-        }
-    }
     compileSdk 31
 
     defaultConfig {
@@ -31,13 +25,11 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         debug {
             minifyEnabled false
-            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -52,7 +44,6 @@ android {
     }
 
     buildFeatures {
-
         dataBinding true
         viewBinding true
     }
@@ -60,6 +51,7 @@ android {
         generateStubs = true
     }
 }
+
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

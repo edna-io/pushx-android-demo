@@ -45,7 +45,7 @@ class DemoNewPushMessageHandler(
 
         super.onNewPushMessage(
             message.copy(
-                thumbnailIcon = ThumbnailImage.ThumbnailIconId(R.drawable.ic_demo_icon),
+                thumbnailIconUrl = "ic_demo_icon",
                 thumbnailIconColor = ContextCompat.getColor(context, R.color.iconColor)
             )
         )
@@ -56,7 +56,7 @@ class DemoNewPushMessageHandler(
         extras.putString(PushNotification::title.name, message.title)
         extras.putString(PushNotification::message.name, message.message)
         extras.putString(PushNotification::smallIconUrl.name, message.smallIconUrl)
-        extras.putLong(PushNotification::setWhen.name, message.setWhen)
+        extras.putString(PushNotification::chlSentAt.name, message.chlSentAt)
         extras.putString(PushNotification::bigTitle.name, message.bigTitle)
         extras.putString(PushNotification::bigMessage.name, message.bigMessage)
         extras.putString(PushNotification::largeIconUrl.name, message.largeIconUrl)
@@ -64,7 +64,7 @@ class DemoNewPushMessageHandler(
         extras.putInt(PushNotification::lights.name, message.lights)
         extras.putString(PushNotification::soundFileName.name, message.soundFileName)
         extras.putLongArray(PushNotification::vibration.name, message.vibration.toLongArray())
-        extras.putLong(PushNotification::setWhen.name, message.setWhen)
+        extras.putString(PushNotification::chlSentAt.name, message.chlSentAt)
         extras.putString(PushNotification::deepLink.name, message.deepLink)
         extras.putParcelableList(PushNotification::actions.name, message.actions.toButtonActionList())
         extras.putMap(PushNotification::customParams.name, message.customParams)
