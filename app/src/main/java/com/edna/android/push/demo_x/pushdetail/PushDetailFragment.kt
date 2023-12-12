@@ -49,6 +49,7 @@ class PushDetailFragment : DaggerFragment() {
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
         setUpAdapter()
         viewModel.loadPushById(args.pushId, args.buttonAction, args.buttonActionTitle)
+        args.extraParams?.let { viewModel.showCustomParams(it) }
     }
 
     private fun setUpAdapter() {

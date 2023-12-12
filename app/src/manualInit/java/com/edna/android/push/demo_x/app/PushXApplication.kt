@@ -1,26 +1,40 @@
 package com.edna.android.push.demo_x.app
 
-import androidx.startup.AppInitializer
 import androidx.work.Configuration
 import com.edna.android.push.demo_x.data.PushRepository
+import com.edna.android.push.demo_x.data.local.sharedpreferences.PreferenceStore
 import com.edna.android.push.demo_x.di.DaggerApplicationComponent
+import com.edna.android.push.demo_x.pushprocessing.DemoNewPushMessageHandler
 import com.edna.android.push.demo_x.pushprocessing.MainDelegatingWorkerFactory
-import com.edna.android.push_x.PushXInitializer
+import com.edna.android.push_x.PushX
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 import javax.inject.Provider
+import ru.rustore.sdk.pushclient.RuStorePushClient
+import ru.rustore.sdk.pushclient.common.logger.DefaultLogger
 
 class PushXApplication : DaggerApplication(), Configuration.Provider, HasAndroidInjector {
 
     @Inject
     lateinit var pushRepository: Provider<PushRepository>
 
+    @Inject
+    lateinit var preferenceStore: PreferenceStore
+
     override fun onCreate() {
         super.onCreate()
-        AppInitializer.getInstance(applicationContext)
-            .initializeComponent(PushXInitializer::class.java)
+
+        PushX.initialize(applicationContext)
+
+        RuStorePushClient.init(
+            application = this,
+            projectId = "zpw73i3UZw1JgSKi1XNKjaJDAnaAQOhc",
+            logger = DefaultLogger()
+        )
+
+        PushX.addEventHandler(DemoNewPushMessageHandler(applicationContext, preferenceStore))
     }
 
     override fun getWorkManagerConfiguration(): Configuration {
