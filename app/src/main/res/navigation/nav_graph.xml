@@ -40,6 +40,12 @@
             android:name="buttonActionTitle"
             app:argType="string"
             app:nullable="true" />
+
+        <argument
+            android:name="extraParams"
+            app:argType="android.os.Bundle"
+            app:nullable="true"
+            android:defaultValue="@null"/>
     </fragment>
 
     <dialog

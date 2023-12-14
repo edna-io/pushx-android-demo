@@ -17,13 +17,12 @@ import com.edna.android.push.demo_x.data.local.sharedpreferences.PreferenceStore
 import com.edna.android.push.demo_x.databinding.LoginDialogBinding
 import com.edna.android.push.demo_x.util.PhoneUtils
 import com.edna.android.push.demo_x.util.PhoneUtils.Companion.COUNTRY_CODE
-import com.edna.android.push.demo_x.util.PhoneUtils.Companion.COUNTRY_CODE_ALT
 import com.edna.android.push_x.PushX
 import com.edna.android.push_x.auth.SubscriberIdType
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.android.support.DaggerDialogFragment
-import ru.tinkoff.decoro.watchers.FormatWatcher
 import javax.inject.Inject
+import ru.tinkoff.decoro.watchers.FormatWatcher
 
 
 class LoginDialog : DaggerDialogFragment() {
@@ -82,7 +81,7 @@ class LoginDialog : DaggerDialogFragment() {
                 if (item is IdentifierType) {
                     when (item) {
                         IdentifierType.PHONE_NUMBER -> {
-                            textWatcherList.forEach {
+                            for (it in textWatcherList) {
                                 binding.identifierValue.removeTextChangedListener(it)
                             }
 
@@ -100,7 +99,7 @@ class LoginDialog : DaggerDialogFragment() {
                             )
                         }
                         else -> {
-                            textWatcherList.forEach {
+                            for (it in textWatcherList) {
                                 binding.identifierValue.removeTextChangedListener(it)
                             }
                             textWatcherList.add(

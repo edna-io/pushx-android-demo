@@ -12,17 +12,15 @@ import com.edna.android.push.demo_x.data.local.sharedpreferences.PreferenceStore
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
 import javax.inject.Singleton
 import kotlin.annotation.AnnotationRetention.RUNTIME
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 
 @Module(includes = [ApplicationModuleBinds::class])
 object ApplicationModule {
-
-    private const val DATABASE_NAME = "PushDatabase.db"
 
     @Qualifier
     @Retention(RUNTIME)
@@ -42,15 +40,7 @@ object ApplicationModule {
     @JvmStatic
     @Singleton
     @Provides
-    fun provideDataBase(context: Context): PushDatabase {
-        return Room.databaseBuilder(
-            context.applicationContext,
-            PushDatabase::class.java,
-            DATABASE_NAME
-        )
-            .fallbackToDestructiveMigration()
-            .build()
-    }
+    fun provideDataBase(context: Context) = SingletonDB.getInstance(context)
 
     @JvmStatic
     @Singleton
@@ -60,7 +50,8 @@ object ApplicationModule {
     @JvmStatic
     @Singleton
     @Provides
-    fun provideResourceProvider(context: Context): ResourceProvider = ResourceProvider(context.applicationContext)
+    fun provideResourceProvider(context: Context): ResourceProvider =
+        ResourceProvider(context.applicationContext)
 
     @JvmStatic
     @Singleton
