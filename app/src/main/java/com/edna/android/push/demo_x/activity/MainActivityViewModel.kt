@@ -15,9 +15,9 @@ import com.edna.android.push_lite.huawei.HmsHelper
 import com.edna.android.push_x.auth.SubscriberIdType
 import com.google.firebase.messaging.FirebaseMessaging
 import com.huawei.hms.common.ApiException
+import javax.inject.Inject
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
-import javax.inject.Inject
 
 class MainActivityViewModel
 @Inject constructor(
@@ -26,18 +26,20 @@ class MainActivityViewModel
 ) : ViewModel() {
 
     val isUserLogin: LiveData<Boolean> = preferenceStore.isUserLoginLiveData
-    val userLogin: LiveData<String> = combine(preferenceStore.userLoginLiveData, preferenceStore.userLoginTypeLiveData)
-    { login, loginType ->
-        if (login.isNullOrEmpty()) {
-            return@combine resourceProvider.getString(R.string.anonymous_header)
+    val userLogin: LiveData<String> =
+        combine(preferenceStore.userLoginLiveData, preferenceStore.userLoginTypeLiveData)
+        { login, loginType ->
+            if (login.isNullOrEmpty()) {
+                return@combine resourceProvider.getString(R.string.anonymous_header)
+            }
+            if (SubscriberIdType.getByName(loginType ?: "") == SubscriberIdType.PHONE_NUMBER) {
+                val mask =
+                    MaskImpl.createTerminated(UnderscoreDigitSlotsParser().parseSlots(PHONE_SLOTS))
+                mask.insertFront(login)
+                return@combine mask.toString()
+            }
+            return@combine login
         }
-        if (SubscriberIdType.getByName(loginType ?: "") == SubscriberIdType.PHONE_NUMBER) {
-            val mask = MaskImpl.createTerminated(UnderscoreDigitSlotsParser().parseSlots(PHONE_SLOTS))
-            mask.insertFront(login)
-            return@combine mask.toString()
-        }
-        return@combine login
-    }
 
     val loginOrLogoutText = isUserLogin.map {
         if (it) {
@@ -70,6 +72,13 @@ class MainActivityViewModel
             FirebaseMessaging.getInstance().deleteToken()
                 .addOnCompleteListener {
                     FirebaseMessaging.getInstance().token
+                        .addOnCompleteListener {
+                            try {
+                                Log.e("GCM", "token was update to ${it.result}")
+                            } catch (e: Exception) {
+                                Log.e("GCM", "token was update with exception: $e")
+                            }
+                        }
                 }
         }
     }
@@ -87,9 +96,11 @@ class MainActivityViewModel
 
     fun copyName() = "${resourceProvider.getString(R.string.lmenu_device_name)}: $name"
 
-    fun copyAddress() = "${resourceProvider.getString(R.string.lmenu_device_address)}: ${deviceAddress.value}"
+    fun copyAddress() =
+        "${resourceProvider.getString(R.string.lmenu_device_address)}: ${deviceAddress.value}"
 
-    fun copyDeviceId() = "${resourceProvider.getString(R.string.lmenu_device_id)}: ${deviceId.value}"
+    fun copyDeviceId() =
+        "${resourceProvider.getString(R.string.lmenu_device_id)}: ${deviceId.value}"
 }
 
 

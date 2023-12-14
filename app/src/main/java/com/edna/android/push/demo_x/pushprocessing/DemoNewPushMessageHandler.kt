@@ -12,7 +12,6 @@ import com.edna.android.push.demo_x.data.dto.ButtonAction
 import com.edna.android.push.demo_x.data.local.sharedpreferences.PreferenceStore
 import com.edna.android.push.demo_x.util.putMap
 import com.edna.android.push.demo_x.util.putParcelableList
-import com.edna.android.push_lite.image.entity.ThumbnailImage
 import com.edna.android.push_lite.notification.entity.PushAction
 import com.edna.android.push_lite.notification.entity.PushNotification
 import com.edna.android.push_x.notification.event.PushXEventHandler
@@ -55,11 +54,11 @@ class DemoNewPushMessageHandler(
         val extras = Data.Builder()
         extras.putString(PushNotification::title.name, message.title)
         extras.putString(PushNotification::message.name, message.message)
-        extras.putString(PushNotification::smallIconUrl.name, message.smallIconUrl)
+        extras.putString(PushNotification::logoUrl.name, message.logoUrl)
         extras.putString(PushNotification::chlSentAt.name, message.chlSentAt)
         extras.putString(PushNotification::bigTitle.name, message.bigTitle)
         extras.putString(PushNotification::bigMessage.name, message.bigMessage)
-        extras.putString(PushNotification::largeIconUrl.name, message.largeIconUrl)
+        extras.putString(PushNotification::bigPictureUrl.name, message.bigPictureUrl)
         extras.putString(PushNotification::messageId.name, message.messageId)
         extras.putInt(PushNotification::lights.name, message.lights)
         extras.putString(PushNotification::soundFileName.name, message.soundFileName)

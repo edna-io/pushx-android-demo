@@ -1,23 +1,31 @@
 package com.edna.android.push.demo_x.pushprocessing
 
 import android.content.Context
-import androidx.work.*
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import com.edna.android.push.demo_x.data.DefaultPushRepository
 import com.edna.android.push.demo_x.data.PushRepository
 import com.edna.android.push.demo_x.data.dto.Push
+import com.edna.android.push.demo_x.data.local.PushListLocalDataSource
+import com.edna.android.push.demo_x.di.SingletonDB
 import com.edna.android.push.demo_x.util.getMap
 import com.edna.android.push.demo_x.util.getParcelableList
 import com.edna.android.push_lite.notification.entity.PushNotification
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Provider
 
-class DatabaseWorker @Inject constructor(
+class DatabaseWorker(
     appContext: Context,
-    workerParams: WorkerParameters,
-    private val pushRepository: Provider<PushRepository>
-) :
-    CoroutineWorker(appContext, workerParams) {
+    workerParams: WorkerParameters
+) : CoroutineWorker(appContext, workerParams) {
+
+    private val pushRepository = pushRepo(appContext)
+
+    private fun pushRepo(context: Context): PushRepository {
+        val pushListLocalDataSource =
+            PushListLocalDataSource(SingletonDB.getInstance(context).pushListDao())
+        return DefaultPushRepository(pushListLocalDataSource)
+    }
 
     companion object {
         const val TAG = "DatabaseWorker"
@@ -29,15 +37,19 @@ class DatabaseWorker @Inject constructor(
             Push(
                 title = extras.getString(PushNotification::title.name) ?: "",
                 description = extras.getString(PushNotification::message.name) ?: "",
-                iconUrl = extras.getString(PushNotification::smallIconUrl.name) ?: "",
-                setWhen = extras.getLong(PushNotification::chlSentAt.name, System.currentTimeMillis()),
+                iconUrl = extras.getString(PushNotification::logoUrl.name) ?: "",
+                setWhen = extras.getLong(
+                    PushNotification::chlSentAt.name,
+                    System.currentTimeMillis()
+                ),
                 bigContentTitle = extras.getString(PushNotification::bigTitle.name) ?: "",
                 bigContentText = extras.getString(PushNotification::bigMessage.name) ?: "",
-                bigImage = extras.getString(PushNotification::largeIconUrl.name) ?: "",
+                bigImage = extras.getString(PushNotification::bigPictureUrl.name) ?: "",
                 messageId = extras.getString(PushNotification::messageId.name) ?: "",
                 lights = extras.getInt(PushNotification::lights.name, -1),
                 soundFileName = extras.getString(PushNotification::soundFileName.name) ?: "",
-                vibration = extras.getLongArray(PushNotification::vibration.name)?.toList() ?: emptyList(),
+                vibration = extras.getLongArray(PushNotification::vibration.name)?.toList()
+                    ?: emptyList(),
                 deepLink = extras.getString(PushNotification::deepLink.name) ?: "",
                 thumbnailIconColor = extras.getInt(PushNotification::thumbnailIconColor.name, -1),
                 actions = extras.getParcelableList(PushNotification::actions.name),
@@ -49,33 +61,7 @@ class DatabaseWorker @Inject constructor(
     }
 
     private suspend fun savePush(push: Push) = withContext(Dispatchers.IO) {
-        pushRepository.get().savePush(push)
+        pushRepository.savePush(push)
     }
 
-}
-
-
-class MainDelegatingWorkerFactory @Inject constructor(
-    pushRepository: Provider<PushRepository>
-) : DelegatingWorkerFactory() {
-    init {
-        addFactory(DataControlWorkerFactory(pushRepository))
-    }
-}
-
-class DataControlWorkerFactory(private val pushRepository: Provider<PushRepository>) : WorkerFactory() {
-
-    override fun createWorker(
-        appContext: Context,
-        workerClassName: String,
-        workerParameters: WorkerParameters
-    ): ListenableWorker? {
-
-        return when (workerClassName) {
-            DatabaseWorker::class.java.name ->
-                DatabaseWorker(appContext, workerParameters, pushRepository)
-            else -> null
-        }
-
-    }
 }

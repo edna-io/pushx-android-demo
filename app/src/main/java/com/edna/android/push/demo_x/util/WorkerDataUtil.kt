@@ -4,42 +4,21 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.work.Data
 
-
 fun Data.Builder.putMap(key: String, map: Map<String, String?>): Data.Builder {
-    val parcel = Parcel.obtain()
-    try {
-        parcel.writeInt(map.size)
-        for ((key1, value) in map.entries) {
-            parcel.writeString(key1)
-            parcel.writeString(value)
-        }
-        putByteArray(key, parcel.marshall())
-    } finally {
-        parcel.recycle()
+    putStringArray(key, map.keys.toTypedArray())
+    for ((key1, value) in map.entries) {
+        putString(key1, value)
     }
     return this
 }
 
 @Suppress("UNCHECKED_CAST")
-fun Data.getMap(key: String): Map<String, String?>? {
-    val parcel = Parcel.obtain()
-    try {
-        val bytes = getByteArray(key) ?: return null
-        parcel.unmarshall(bytes, 0, bytes.size)
-        parcel.setDataPosition(0)
-        parcel.readInt()
-
-        val size = parcel.readInt()
-        val map = mutableMapOf<String, String?>()
-        for (i in 0 until size) {
-            val key1 = parcel.readString() ?: ""
-            val value = parcel.readString()
-            map[key1] = value
-        }
-        return map
-    } finally {
-        parcel.recycle()
+fun Data.getMap(key: String): Map<String, String?> {
+    val map = mutableMapOf<String, String?>()
+    getStringArray(key)?.forEach {
+        map[it] = getString(it)
     }
+    return map
 }
 
 fun Data.Builder.putParcelable(key: String, parcelable: Parcelable): Data.Builder {
