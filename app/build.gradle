@@ -1,5 +1,4 @@
 
-
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -8,14 +7,15 @@ plugins {
     id 'com.huawei.agconnect'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id "io.github.solneo.dependency-conflict-analyzer" version "1.0.2"
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
-        minSdk 21
-        targetSdk 31
+        minSdk 23
+        targetSdk 33
         applicationId "com.edna.android.push.demo_x"
         versionCode 1
         versionName "1.0"
@@ -32,15 +32,47 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debugRegressionStend {
+            manifestPlaceholders = [edna_app_id: "eyJ0ZW5hbnRVdWlkIjoiYjY3OGFiZDMtMjA5NS00ZDNmLWJmYWYtNGMxM2E3ZGM1MTU5IiwicHJvdmlkZXJVaWQiOiJZMjl0TG1Wa2JtRXVZVzVrY205cFpDNXdkWE5vTG1SbGJXOWZlRjlpTmpjNFlXSmtNeTB5TURrMUxUUmtNMll0WW1aaFppMDBZekV6WVRka1l6VXhOVGs9In0="]
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "init", "inheritance"
+
+    productFlavors {
+        autoInit {
+            dimension "init"
+            versionNameSuffix "-auto"
+        }
+        manualInit {
+            dimension "init"
+            versionNameSuffix "-manual"
+        }
+        manualInitWithEdnaId {
+            dimension "init"
+            versionNameSuffix "-manualWithId"
+        }
+        withoutInheritance {
+            dimension "inheritance"
+            versionNameSuffix "-inheritance"
+        }
+        withInheritance {
+            dimension "inheritance"
+            versionNameSuffix "-inheritance"
+        }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 
     buildFeatures {
@@ -62,16 +94,24 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    implementation "com.edna.android:push-x:$libVersion"
-    implementation "com.edna.android:push-x-huawei:$libVersion"
+    releaseImplementation platform("com.edna.android:push-x-bom:2.3.0")
+    releaseImplementation "com.edna.android:push-lite-huawei-release"
+    releaseImplementation "com.edna.android:push-lite-rustore-release"
 
+    debugImplementation platform("com.edna.android:push-x-bom-debug:2.3.0")
+    debugImplementation "com.edna.android:push-lite-huawei-debug"
+    debugImplementation "com.edna.android:push-lite-rustore-debug"
+
+    debugRegressionStendImplementation platform("com.edna.android:push-x-bom-debug-regression:2.3.0")
+    debugRegressionStendImplementation "com.edna.android:push-lite-huawei-debug"
+    debugRegressionStendImplementation "com.edna.android:push-lite-rustore-debug"
     // Architecture Components
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionsVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
 
     // Dagger
