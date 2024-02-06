@@ -2,19 +2,7 @@ buildscript {
     ext.kotlin_version = "1.8.0"
     ext.navigationVersion = "2.3.5"
     repositories {
-        mavenCentral()
-        google()
-        maven {
-            url 'http://developer.huawei.com/repo/'
-            allowInsecureProtocol = true
-        }
-        maven {
-            url 'https://maven-pub.edna.ru/repository/maven-releases'
-            allowInsecureProtocol = true
-        }
-        maven {
-            url 'https://artifactory-external.vkpartner.ru/artifactory/maven'
-        }    }
+    }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.1'
         classpath "com.google.gms:google-services:4.3.10"
@@ -28,19 +16,7 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenCentral()
-        google()
-        maven {
-            url 'http://developer.huawei.com/repo/'
-            allowInsecureProtocol = true
-        }
-        maven {
-            url 'https://maven-pub.edna.ru/repository/maven-releases'
-            allowInsecureProtocol = true
-        }
-        maven {
-            url 'https://artifactory-external.vkpartner.ru/artifactory/maven'
-        }    }
+    }
 }
 
 task clean(type: Delete) {

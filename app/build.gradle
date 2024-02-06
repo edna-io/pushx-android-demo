@@ -34,7 +34,7 @@ android {
         }
 
         debugRegressionStend {
-            manifestPlaceholders = [edna_app_id: "eyJ0ZW5hbnRVdWlkIjoiYjY3OGFiZDMtMjA5NS00ZDNmLWJmYWYtNGMxM2E3ZGM1MTU5IiwicHJvdmlkZXJVaWQiOiJZMjl0TG1Wa2JtRXVZVzVrY205cFpDNXdkWE5vTG1SbGJXOWZlRjlpTmpjNFlXSmtNeTB5TURrMUxUUmtNMll0WW1aaFppMDBZekV6WVRka1l6VXhOVGs9In0="]
+            manifestPlaceholders = [edna_app_id: "enter your tenant"]
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
