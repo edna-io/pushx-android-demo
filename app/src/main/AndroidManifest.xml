@@ -26,5 +26,8 @@
             android:name="com.pushserver.android.logs"
             android:value="true" />
 
+        <meta-data
+            android:name="ru.rustore.sdk.pushclient.project_id"
+            android:value="zpw73i3UZw1JgSKi1XNKjaJDAnaAQOhc" />
     </application>
 </manifest>

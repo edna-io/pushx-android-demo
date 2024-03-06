@@ -7,6 +7,7 @@ import com.edna.android.push.demo_x.data.DefaultPushRepository
 import com.edna.android.push.demo_x.data.PushRepository
 import com.edna.android.push.demo_x.data.dto.Push
 import com.edna.android.push.demo_x.data.local.PushListLocalDataSource
+import com.edna.android.push.demo_x.data.local.sharedpreferences.PreferenceStore
 import com.edna.android.push.demo_x.di.SingletonDB
 import com.edna.android.push.demo_x.util.getMap
 import com.edna.android.push.demo_x.util.getParcelableList
@@ -24,7 +25,7 @@ class DatabaseWorker(
     private fun pushRepo(context: Context): PushRepository {
         val pushListLocalDataSource =
             PushListLocalDataSource(SingletonDB.getInstance(context).pushListDao())
-        return DefaultPushRepository(pushListLocalDataSource)
+        return DefaultPushRepository(pushListLocalDataSource, Dispatchers.IO, PreferenceStore(context))
     }
 
     companion object {

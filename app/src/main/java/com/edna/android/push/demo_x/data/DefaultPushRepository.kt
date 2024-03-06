@@ -1,13 +1,19 @@
 package com.edna.android.push.demo_x.data
 
 import com.edna.android.push.demo_x.data.dto.Push
+import com.edna.android.push.demo_x.data.local.sharedpreferences.PreferenceStore
 import com.edna.android.push.demo_x.di.ApplicationModule
-import kotlinx.coroutines.*
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DefaultPushRepository @Inject constructor(
     @ApplicationModule.PushListLocalDataSource private val pushListLocalDataSource: PushDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val sharedPref: PreferenceStore
 ) : PushRepository {
 
     override suspend fun getPushList(): Result<List<Push>> = withContext(ioDispatcher) {
@@ -34,6 +40,14 @@ class DefaultPushRepository @Inject constructor(
         coroutineScope {
             launch { pushListLocalDataSource.clearPushList() }
         }
+    }
+
+    override fun saveEdnaAppId(ednaAppId: String) {
+        sharedPref.ednaId = ednaAppId
+    }
+
+    override fun getEdnaAppId(): String {
+        return sharedPref.ednaId ?: ""
     }
 
 }

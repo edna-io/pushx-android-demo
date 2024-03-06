@@ -2,22 +2,13 @@ buildscript {
     ext.kotlin_version = "1.8.0"
     ext.navigationVersion = "2.3.5"
     repositories {
-        mavenCentral()
-        google()
         maven {
-            url 'http://developer.huawei.com/repo/'
-            allowInsecureProtocol = true
+            setUrl("https://mvn1.mfms.ru/repository/maven-public/")
         }
-        maven {
-            url 'https://maven-pub.edna.ru/repository/maven-releases'
-            allowInsecureProtocol = true
-        }
-        maven {
-            url 'https://artifactory-external.vkpartner.ru/artifactory/maven'
-        }    }
+    }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.1'
-        classpath "com.google.gms:google-services:4.3.10"
+        classpath "com.google.gms:google-services:4.4.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.huawei.agconnect:agcp:1.6.0.300'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
@@ -28,19 +19,23 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenCentral()
-        google()
         maven {
-            url 'http://developer.huawei.com/repo/'
-            allowInsecureProtocol = true
+            setUrl("https://mvn1.mfms.ru/repository/maven-public/")
         }
         maven {
-            url 'https://maven-pub.edna.ru/repository/maven-releases'
+            if ("$version".contains('SNAPSHOT')) {
+                // dev
+                url 'https://mvn1.mfms.ru/repository/snapshots'
+            } else if ("$version".contains('RC')) {
+                // rc
+                url 'https://mvn1.mfms.ru/repository/releases'
+            } else {
+                // release
+                url 'https://maven-pub.edna.ru/repository/maven-releases'
+            }
             allowInsecureProtocol = true
         }
-        maven {
-            url 'https://artifactory-external.vkpartner.ru/artifactory/maven'
-        }    }
+    }
 }
 
 task clean(type: Delete) {
