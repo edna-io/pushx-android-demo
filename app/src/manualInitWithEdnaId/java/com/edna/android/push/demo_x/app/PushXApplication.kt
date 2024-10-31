@@ -27,18 +27,16 @@ class PushXApplication : DaggerApplication(), Configuration.Provider, HasAndroid
     override fun onCreate() {
         super.onCreate()
 
-        val ednaAppId = when (BuildConfig.BUILD_TYPE) {
+        val savedEdnaId = preferenceStore.ednaId
+        val defaultEdnaAppId = when (BuildConfig.BUILD_TYPE) {
+            "release" -> "eyJ0ZW5hbnRVdWlkIjoiODFjZGE4OTYtNzc3Mi00NGUxLWI3YTEtYjNkOTFmNTdkNWVjIiwicHJvdmlkZXJVaWQiOiJZMjl0TG1Wa2JtRXVZVzVrY205cFpDNXdkWE5vTG1SbGJXOWZlRjg0TVdOa1lUZzVOaTAzTnpjeUxUUTBaVEV0WWpkaE1TMWlNMlE1TVdZMU4yUTFaV009In0="
             "debugRegressionStend" -> "eyJ0ZW5hbnRVdWlkIjoiYjY3OGFiZDMtMjA5NS00ZDNmLWJmYWYtNGMxM2E3ZGM1MTU5IiwicHJvdmlkZXJVaWQiOiJZMjl0TG1Wa2JtRXVZVzVrY205cFpDNXdkWE5vTG1SbGJXOWZlRjlpTmpjNFlXSmtNeTB5TURrMUxUUmtNMll0WW1aaFppMDBZekV6WVRka1l6VXhOVGs9In0="
             else -> "eyJ0ZW5hbnRVdWlkIjoiNWY0ZDVmMGItZDI3Ny00YWNlLTgyNjUtOTFmNjk5OWQ3NjUzIiwicHJvdmlkZXJVaWQiOiJZMjl0TG1Wa2JtRXVZVzVrY205cFpDNXdkWE5vTG1SbGJXOWZlRjgxWmpSa05XWXdZaTFrTWpjM0xUUmhZMlV0T0RJMk5TMDVNV1kyT1RrNVpEYzJOVE09In0="
         }
-        PushX.initialize(applicationContext, ednaAppId)
-
-        RuStorePushClient.init(
-            application = this,
-            projectId = "zpw73i3UZw1JgSKi1XNKjaJDAnaAQOhc",
-            logger = DefaultLogger()
-        )
-
+        if (savedEdnaId == null) {
+            preferenceStore.ednaId = defaultEdnaAppId
+        }
+        PushX.initialize(applicationContext, preferenceStore.ednaId ?: defaultEdnaAppId)
         PushX.addEventHandler(DemoNewPushMessageHandler(applicationContext, preferenceStore))
     }
 

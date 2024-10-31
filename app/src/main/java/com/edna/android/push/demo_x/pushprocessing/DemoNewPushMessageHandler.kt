@@ -33,6 +33,7 @@ class DemoNewPushMessageHandler(
     }
 
     override fun onNewPushMessage(message: PushNotification) {
+
         val uploadWorkRequest =
             OneTimeWorkRequestBuilder<DatabaseWorker>()
                 .setInputData(marshalPushToData(message))
@@ -44,7 +45,7 @@ class DemoNewPushMessageHandler(
 
         super.onNewPushMessage(
             message.copy(
-                thumbnailIconUrl = "ic_demo_icon",
+                thumbnailIconUrl = message.thumbnailIconUrl ?: "ic_demo_icon",
                 thumbnailIconColor = ContextCompat.getColor(context, R.color.iconColor)
             )
         )

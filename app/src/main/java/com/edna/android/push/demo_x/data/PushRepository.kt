@@ -15,4 +15,7 @@ interface PushRepository {
     suspend fun savePush(push: Push)
 
     suspend fun clearPushList()
+
+    fun saveEdnaAppId(ednaAppId: String)
+    fun getEdnaAppId(): String
 }

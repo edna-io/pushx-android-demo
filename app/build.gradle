@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    compileSdk 33
-
+    compileSdk 34
+    namespace 'com.edna.android.push.demo_x'
     defaultConfig {
         minSdk 23
-        targetSdk 33
+        targetSdk 34
         applicationId "com.edna.android.push.demo_x"
         versionCode 1
         versionName "1.0"
@@ -24,17 +24,19 @@ android {
 
     buildTypes {
         release {
+            manifestPlaceholders = [edna_app_id: "enter your tenant"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         debug {
+            manifestPlaceholders = [edna_app_id: "enter your tenant"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         debugRegressionStend {
-            manifestPlaceholders = [edna_app_id: "eyJ0ZW5hbnRVdWlkIjoiYjY3OGFiZDMtMjA5NS00ZDNmLWJmYWYtNGMxM2E3ZGM1MTU5IiwicHJvdmlkZXJVaWQiOiJZMjl0TG1Wa2JtRXVZVzVrY205cFpDNXdkWE5vTG1SbGJXOWZlRjlpTmpjNFlXSmtNeTB5TURrMUxUUmtNMll0WW1aaFppMDBZekV6WVRka1l6VXhOVGs9In0="]
+            manifestPlaceholders = [edna_app_id: "enter your tenant"]
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -94,15 +96,15 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    releaseImplementation platform("com.edna.android:push-x-bom:2.3.0")
+    releaseImplementation platform("com.edna.android:push-x-bom:2.4.0-SNAPSHOT")
     releaseImplementation "com.edna.android:push-lite-huawei-release"
     releaseImplementation "com.edna.android:push-lite-rustore-release"
 
-    debugImplementation platform("com.edna.android:push-x-bom-debug:2.3.0")
+    debugImplementation platform("com.edna.android:push-x-bom-debug:2.4.0-SNAPSHOT")
     debugImplementation "com.edna.android:push-lite-huawei-debug"
     debugImplementation "com.edna.android:push-lite-rustore-debug"
 
-    debugRegressionStendImplementation platform("com.edna.android:push-x-bom-debug-regression:2.3.0")
+    debugRegressionStendImplementation platform("com.edna.android:push-x-bom-debug-regression:2.4.0-SNAPSHOT")
     debugRegressionStendImplementation "com.edna.android:push-lite-huawei-debug"
     debugRegressionStendImplementation "com.edna.android:push-lite-rustore-debug"
     // Architecture Components
@@ -126,6 +128,7 @@ dependencies {
 
     implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "ru.tinkoff.decoro:decoro:$decoroVersion"
+    implementation 'com.jakewharton:process-phoenix:2.1.2'
 
     implementation "androidx.work:work-runtime:$work_version"
     implementation "androidx.work:work-runtime-ktx:$work_version"

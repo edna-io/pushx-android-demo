@@ -17,11 +17,6 @@ class PushXApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        RuStorePushClient.init(
-            application = this,
-            projectId = "zpw73i3UZw1JgSKi1XNKjaJDAnaAQOhc",
-            logger = DefaultLogger()
-        )
         PushX.addEventHandler(DemoNewPushMessageHandler(applicationContext, preferenceStore))
     }
 

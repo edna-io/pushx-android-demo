@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.edna.android.push.demo_x">
 
     <application
@@ -26,5 +27,13 @@
             android:name="com.pushserver.android.logs"
             android:value="true" />
 
+        <meta-data
+            android:name="ru.rustore.sdk.pushclient.project_id"
+            android:value="enter your projectId" />
+
+        <meta-data
+            tools:replace="android:value"
+            android:name="com.pushserver.android.manual_registration"
+            android:value="false" />
     </application>
 </manifest>

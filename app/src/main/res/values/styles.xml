@@ -45,7 +45,7 @@
     </style>
 
     <style name="Alert.Button" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/positive500</item>
+        <item name="android:textColor">@color/button_color</item>
         <item name="backgroundTint">@android:color/transparent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14sp</item>
