@@ -27,13 +27,6 @@ class PushXApplication : DaggerApplication(), Configuration.Provider, HasAndroid
         super.onCreate()
 
         PushX.initialize(applicationContext)
-
-        RuStorePushClient.init(
-            application = this,
-            projectId = "zpw73i3UZw1JgSKi1XNKjaJDAnaAQOhc",
-            logger = DefaultLogger()
-        )
-
         PushX.addEventHandler(DemoNewPushMessageHandler(applicationContext, preferenceStore))
     }
 

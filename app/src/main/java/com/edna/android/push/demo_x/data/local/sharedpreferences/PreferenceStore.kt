@@ -15,6 +15,7 @@ class PreferenceStore(context: Context) {
     val deviceAddressLiveData = sharedPreferences.stringLiveData(PREFERENCE_DEVICE_ADDRESS, "")
     var deviceUid by sharedPreferences.stringNullable(key = { PREFERENCE_DEVICE_UID })
     var deviceUidLiveData = sharedPreferences.stringLiveData(PREFERENCE_DEVICE_UID, "")
+    var ednaId by sharedPreferences.stringNullable(key = { PREFERENCE_EDNA_ID })
 
     @set:JvmName("setIsUserLogin")
     var isUserLogin by sharedPreferences.boolean { PREFERENCE_IS_USER_LOGIN }
@@ -33,5 +34,6 @@ class PreferenceStore(context: Context) {
         private const val PREFERENCE_IS_USER_LOGIN = BASE_NAMESPACE + "id_is_user_login"
         private const val PREFERENCE_USER_LOGIN = BASE_NAMESPACE + "id_user_login"
         private const val PREFERENCE_USER_LOGIN_TYPE = BASE_NAMESPACE + "id_user_login_type"
+        private const val PREFERENCE_EDNA_ID = BASE_NAMESPACE + "edna_id"
     }
 }

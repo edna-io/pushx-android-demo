@@ -5,13 +5,13 @@
 
     <application tools:ignore="MissingApplicationIcon">
 
-        <!-- remove all startup components -->
+        <!-- remove all startup components
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove" />
 
-        <!-- remove only push-x startup component
+        remove only push-x startup component -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
@@ -19,7 +19,11 @@
             <meta-data
                 android:name="com.edna.android.push_x.PushXInitializer"
                 tools:node="remove" />
-        </provider> -->
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
 
         <meta-data
             android:name="com.pushserver.android.appId"

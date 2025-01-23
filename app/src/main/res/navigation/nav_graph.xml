@@ -13,6 +13,18 @@
         app:destination="@id/clearHistoryDialogFragment" />
 
     <action
+        android:id="@+id/to_resetAddressDialogFragment"
+        app:destination="@id/resetAddressDialogFragment" />
+
+    <action
+        android:id="@+id/to_changeAppIdDialogFragment"
+        app:destination="@id/changeAppIdDialogFragment" />
+
+    <action
+        android:id="@+id/to_changeAppIdErrorDialogFragment"
+        app:destination="@id/changeAppIdErrorDialogFragment" />
+
+    <action
         android:id="@+id/to_pushDetailFragment"
         app:destination="@id/pushDetailFragment" />
 
@@ -59,5 +71,17 @@
     <dialog
         android:id="@+id/clearHistoryDialogFragment"
         android:name="com.edna.android.push.demo_x.clearhistory.ClearHistoryDialog" />
+
+    <dialog
+        android:id="@+id/resetAddressDialogFragment"
+        android:name="com.edna.android.push.demo_x.resetaddress.ResetPushAddressDialog" />
+
+    <dialog
+        android:id="@+id/changeAppIdDialogFragment"
+        android:name="com.edna.android.push.demo_x.changeappid.ChangeAppIdDialog" />
+
+    <dialog
+        android:id="@+id/changeAppIdErrorDialogFragment"
+        android:name="com.edna.android.push.demo_x.changeappid.ChangeAppIdErrorDialog" />
 
 </navigation>
