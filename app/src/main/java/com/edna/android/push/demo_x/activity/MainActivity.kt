@@ -2,11 +2,13 @@ package com.edna.android.push.demo_x.activity
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -21,6 +23,7 @@ import com.edna.android.push.demo_x.NavGraphDirections
 import com.edna.android.push.demo_x.R
 import com.edna.android.push.demo_x.data.local.sharedpreferences.PreferenceStore
 import com.edna.android.push.demo_x.databinding.ActivityBinding
+import com.edna.android.push_lite.exception.MetaConfigurationException
 import com.edna.android.push_lite.notification.entity.PushAction
 import com.edna.android.push_x.PushX
 import dagger.android.support.DaggerAppCompatActivity
@@ -33,6 +36,7 @@ class MainActivity : DaggerAppCompatActivity() {
         const val PUSH_ACTION_KEY = "action"
         const val ACTION_PARAMS = "action_params"
         const val REQUEST_CODE = 45978
+        const val APP_ID_KEY = "com.pushserver.android.appId"
     }
 
     @Inject
@@ -85,15 +89,16 @@ class MainActivity : DaggerAppCompatActivity() {
                 if ((grantResults.isNotEmpty() &&
                             grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 ) {
-                Toast(this).also {
-                    it.setText("Permission granted")
-                }.show()
+                    Toast(this).also {
+                        it.setText("Permission granted")
+                    }.show()
                 } else {
                     Toast(this).also {
                         it.setText("Permission not granted")
                     }.show()
                 }
             }
+
             else -> {
                 // Ignore all other requests.
             }
@@ -148,6 +153,22 @@ class MainActivity : DaggerAppCompatActivity() {
 
         binding.clearPushHistoryButton.setOnClickListener {
             findNavController(R.id.nav_host_fragment).navigate(R.id.to_clearHistoryDialogFragment)
+        }
+        binding.changeAppIdButton.setOnClickListener {
+            val metaData: Bundle? = try {
+                packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData
+            } catch (e: PackageManager.NameNotFoundException) {
+                Log.d("Main activity", "Meta data not found in manifest", e)
+                null
+            }
+            if (metaData != null && metaData.containsKey(APP_ID_KEY)) {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.to_changeAppIdErrorDialogFragment)
+            } else {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.to_changeAppIdDialogFragment)
+            }
+        }
+        binding.removePushAddressButton.setOnClickListener {
+            findNavController(R.id.nav_host_fragment).navigate(R.id.to_resetAddressDialogFragment)
         }
     }
 
