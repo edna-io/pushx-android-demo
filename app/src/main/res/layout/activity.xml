@@ -114,7 +114,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:onClick="@{(view)-> viewmodel.resetPushAddress(view.context)}"
                     android:text="@string/lmenu_reset_push_token"
                     android:textColor="@color/grayContent"
                     android:textStyle="bold"
@@ -124,13 +123,35 @@
                     app:layout_constraintTop_toTopOf="@+id/removePushAddressIcon" />
 
                 <ImageView
+                    android:id="@+id/changeAppIdIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:src="@drawable/ic_change_app_id"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/removePushAddressIcon" />
+
+                <TextView
+                    android:id="@+id/changeAppIdButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/lmenu_appid_change"
+                    android:textColor="@color/grayContent"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/changeAppIdIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/changeAppIdIcon"
+                    app:layout_constraintTop_toTopOf="@+id/changeAppIdIcon" />
+
+                <ImageView
                     android:id="@+id/clearPushHistoryIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
                     android:src="@drawable/ic_trash"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/removePushAddressIcon" />
+                    app:layout_constraintTop_toBottomOf="@+id/changeAppIdIcon" />
 
                 <TextView
                     android:id="@+id/clearPushHistoryButton"
@@ -266,6 +287,29 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/copyDataIcon"
                     app:layout_constraintTop_toTopOf="@+id/copyDataIcon" />
+
+                <ImageView
+                    android:id="@+id/copyPushDataIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/ic_copy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/copyDataIcon" />
+
+                <TextView
+                    android:id="@+id/copyPushDataButton"
+                    android:onClick="@{(view)-> viewmodel.copyPushData(view.context)}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/copy_push_device_info_btn"
+                    android:textColor="@color/grayContent"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/copyPushDataIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/copyPushDataIcon"
+                    app:layout_constraintTop_toTopOf="@+id/copyPushDataIcon" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.navigation.NavigationView>
 
