@@ -96,15 +96,15 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    releaseImplementation platform("com.edna.android:push-x-bom:2.4.0-SNAPSHOT")
+    releaseImplementation platform("com.edna.android:push-x-bom:$version")
     releaseImplementation "com.edna.android:push-lite-huawei-release"
     releaseImplementation "com.edna.android:push-lite-rustore-release"
 
-    debugImplementation platform("com.edna.android:push-x-bom-debug:2.4.0-SNAPSHOT")
+    debugImplementation platform("com.edna.android:push-x-bom-debug:$version")
     debugImplementation "com.edna.android:push-lite-huawei-debug"
     debugImplementation "com.edna.android:push-lite-rustore-debug"
 
-    debugRegressionStendImplementation platform("com.edna.android:push-x-bom-debug-regression:2.4.0-SNAPSHOT")
+    debugRegressionStendImplementation platform("com.edna.android:push-x-bom-debug-regression:$version")
     debugRegressionStendImplementation "com.edna.android:push-lite-huawei-debug"
     debugRegressionStendImplementation "com.edna.android:push-lite-rustore-debug"
     // Architecture Components
